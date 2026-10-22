@@ -323,6 +323,13 @@
       if (G.auto) G.players.forEach((p, pi) => SW.checks.drive(W, p.li, pi, G.auto[pi], W.t + W.acc + dt + 0.01));
       sim.advance(W, dt);
       countdown(W);
+      // the beat: a soft tick for every note of each brother's strip, scheduled a moment ahead on the audio clock
+      const now = W.t + W.acc;
+      for (const p of G.players) {
+        const lane = W.lanes[p.li];
+        if (lane.ctrl[lane.leg] !== p.pi) continue;
+        for (const n of lane.notes) if (!n.ticked && n.t > now - 0.02 && n.t <= now + 0.12) { n.ticked = true; sfx('tick', n.kind, Math.max(0, n.t - now)); }
+      }
       // once every brother is home, don't make them wait for the friends: finish the race (the same rules, at once)
       if (!W.over && G.players.every((p) => W.lanes[p.li].state === 'done')) {
         G.homeT = (G.homeT || 0) + dt;
@@ -463,8 +470,8 @@
   function aimCamera(k, snap) {
     const v = new T.Vector3(), at = new T.Vector3(), tall = G.Wd / G.Hd < 1;
     if (G.state === 'home') {
-      v.set(11.3, 3.1, tall ? 21 : 17.6);
-      at.set(11.3, 1.2, 9.1);
+      v.set(11.3, 2.8, tall ? 21 : 17.2);
+      at.set(11.3, 1.8, 9.1);
     } else if (G.state === 'results') {
       const P = SW.pool.PODIUM;
       v.set(P.x + 0.4, SW.pool.DECK + 2.7, P.z + (tall ? 10.5 : 8.4));

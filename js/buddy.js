@@ -26,7 +26,7 @@
   function buddyModel(id) {
     if (!own[id]) {
       const e = Kit.roster.get(id);
-      own[id] = SW.swimmer.create(id, { scale: (e.buddyScale || 0.8) * 0.95 });
+      own[id] = SW.swimmer.create(id, { scale: e.buddyScale || 0.8 });
       own[id].holder.visible = false;
       api.scene.add(own[id].holder);
     }
