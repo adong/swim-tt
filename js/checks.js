@@ -204,5 +204,5 @@
     return { ok, results, prove, stats, ms: Date.now() - t0 };
   }
 
-  SW.checks = { run, race, bot, CHECKS };
+  SW.checks = { run, race, bot, drive, CHECKS };
 })();

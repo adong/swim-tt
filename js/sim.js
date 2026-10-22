@@ -284,6 +284,12 @@
     return true;
   }
 
+  // a treat from your brother: a big breath of air
+  function snack(W, li) {
+    const lane = W.lanes[li];
+    if (lane) lane.air = 1;
+  }
+
   // where a swimmer is in the pool: x along it (0 = the start wall) and which way he's heading
   function where(W, lane) {
     const s = lane.s;
@@ -297,6 +303,6 @@
 
   SW.sim = {
     DT, COUNT: COUNT_N * DT, POOL, LEVEL, EVENTS, EV, CPU, Q, DIVE, PUSH, LEAD, TURBO, BUDDY_SECS, HIGH5_SECS, LIMIT,
-    rng, lineup, create, press, step, advance, turbo, where, upcoming, judgeOff, stars, airMult, lvl, human, swimming,
+    rng, lineup, create, press, step, advance, turbo, snack, where, upcoming, judgeOff, stars, airMult, lvl, human, swimming,
   };
 })();
